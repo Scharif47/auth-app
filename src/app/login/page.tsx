@@ -6,7 +6,7 @@ import React from "react";
 import {useRouter} from "next/navigation";
 // import {axios} from "axios";
 
-// Function for rendering the signup page
+// Function for rendering the login page
 export default function LoginPage() {
   const {useState} = React
   const router = useRouter()
@@ -17,18 +17,18 @@ export default function LoginPage() {
     password: "",
   })
 
-  // Function for handling the user signup
+  // Function for handling the user login
   const onLogin = async () => {
 
   }
 
-  // Return the rendered signup page
+  // Return the rendered login page
   return (
     <div className="flex flex-col justify-center items-center min-h-screen py-2 text-slate-100">
       {/* Title of the Page */}
       <h1 className="text-white text-2xl">Login</h1>
       <hr />
-      {/* Form for the user to signup */}
+      {/* Form for the user to login */}
       {/* email inputs */}
       <label htmlFor="email">email</label>
       <input
@@ -49,7 +49,7 @@ export default function LoginPage() {
        onChange={(e) => setUser({...user, password: e.target.value})} 
        placeholder="password"
        />
-      {/* Button for the user to signup */}
+      {/* Button for the user to login */}
       <button
       onClick={onLogin}
       className="py-1 px-4 border border-gray300 rounded-lg mt-4 focus:outline-none focus:border-gray-600">Login</button>
