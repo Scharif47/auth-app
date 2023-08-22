@@ -5,6 +5,7 @@ export async function connect() {
   try {
     // Connect to MongoDB
     mongoose.connect(process.env.MONGO_URI!);
+    console.log("connected to the database!!!!!!!!!!!")
     // Get the default connection
     const connection = mongoose.connection;
 

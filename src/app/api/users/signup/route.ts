@@ -3,8 +3,10 @@ import User from "@/models/userModel";
 import { NextRequest, NextResponse } from "next/server";
 import bcryptjs from "bcryptjs";
 
+// Connect to database
 connect();
 
+// Function to post a signup request
 export async function POST(request: NextRequest) {
   // Try to handle the request
   try {
