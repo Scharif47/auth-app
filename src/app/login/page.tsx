@@ -18,9 +18,9 @@ export default function LoginPage() {
     email: "",
     password: "",
   });
-
-  //Set state for diabling the button
+  // Set state for diabling the button
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  // Set state for loading process
   const [isLoading, setIsLoading] = useState(false);
 
   // Function for handling the user login
@@ -31,7 +31,7 @@ export default function LoginPage() {
       const response = await axios.post("/api/users/login", user);
 
       // Show success message
-      toast.success("Login successfull");
+      toast.success("Login successful");
       console.log("Login success ", response.data);
 
       // Push the logged in user to the profile page

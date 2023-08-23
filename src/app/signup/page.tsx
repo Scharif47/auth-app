@@ -21,6 +21,7 @@ export default function SignupPage() {
   });
   // Set the button state
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  // Set state for loading process
   const [isLoading, setIsLoading] = useState(false);
 
   // Function for handling the user signup
@@ -31,7 +32,7 @@ export default function SignupPage() {
       const response = await axios.post("/api/users/signup", user);
 
       // Show success message
-      toast.success("Signup successfull");
+      toast.success("Signup successful");
       console.log("Signup success ", response.data);
 
       // Push the registered user to the login page
