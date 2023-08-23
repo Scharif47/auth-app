@@ -1,10 +1,12 @@
 // Set as client-side
 "use client";
 
+import { isValidEmail } from "../../utils/validation";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
-// import {axios} from "axios";
+import { toast } from "react-hot-toast";
+import axios from "axios";
 
 // Function for rendering the login page
 export default function LoginPage() {
@@ -17,14 +19,52 @@ export default function LoginPage() {
     password: "",
   });
 
+  //Set state for diabling the button
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   // Function for handling the user login
-  const onLogin = async () => {};
+  const onLogin = async () => {
+    try {
+      // Try to login the user
+      setIsLoading(true);
+      const response = await axios.post("/api/users/login", user);
+
+      // Show success message
+      toast.success("Login successfull");
+      console.log("Login success ", response.data);
+
+      // Push the logged in user to the profile page
+      router.push("/profile");
+    } catch (error: any) {
+      // Error handling
+      console.error("Login failed ", error.message);
+      toast.error(error.message);
+    } finally {
+      // Don't show loading process anymore
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (
+      user.email.length > 0 &&
+      user.password.length > 0 &&
+      isValidEmail(user.email)
+    ) {
+      setIsButtonDisabled(false);
+    } else {
+      setIsButtonDisabled(true);
+    }
+  }, [user]);
 
   // Return the rendered login page
   return (
     <div className="flex flex-col justify-center items-center min-h-screen py-2 text-slate-100">
       {/* Title of the Page */}
-      <h1 className="text-white text-2xl">Login</h1>
+      <h1 className="text-white text-2xl">
+        {isLoading ? "Processing..." : "Login"}
+      </h1>
       <hr />
       {/* Form for the user to login */}
       {/* email inputs */}
@@ -50,7 +90,9 @@ export default function LoginPage() {
       {/* Button for the user to login */}
       <button
         onClick={onLogin}
-        className="py-1 px-4 border border-gray300 rounded-lg mt-4 focus:outline-none focus:border-gray-600"
+        className={`py-1 px-4 border border-gray300 rounded-lg mt-4 focus:outline-none focus:border-gray-600 ${
+          isButtonDisabled ? "bg-red-800" : "bg-green-800"
+        }`}
       >
         Login
       </button>

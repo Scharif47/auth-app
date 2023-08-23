@@ -1,6 +1,7 @@
 // Set as client-side
 "use client";
 
+import { isValidEmail } from "../../utils/validation";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -19,16 +20,21 @@ export default function SignupPage() {
     username: "",
   });
   // Set the button state
-  const [buttonDisabled, setButtonDisabled] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Function for handling the user signup
   const onSignup = async () => {
     try {
       // Try to signup the user
-      setLoading(true);
+      setIsLoading(true);
       const response = await axios.post("/api/users/signup", user);
+
+      // Show success message
+      toast.success("Signup successfull");
       console.log("Signup success ", response.data);
+
+      // Push the registered user to the login page
       router.push("/login");
     } catch (error: any) {
       // Error handling
@@ -36,19 +42,20 @@ export default function SignupPage() {
       toast.error(error.message);
     } finally {
       // Don't show loading process anymore
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
     if (
       user.email.length > 0 &&
+      isValidEmail(user.email) &&
       user.password.length > 0 &&
       user.username.length > 0
     ) {
-      setButtonDisabled(false);
+      setIsButtonDisabled(false);
     } else {
-      setButtonDisabled(true);
+      setIsButtonDisabled(true);
     }
   }, [user]);
 
@@ -57,7 +64,7 @@ export default function SignupPage() {
     <div className="flex flex-col justify-center items-center min-h-screen py-2 text-slate-100">
       {/* Title of the Page */}
       <h1 className="text-white text-2xl">
-        {loading ? "Processing..." : "Signup"}
+        {isLoading ? "Processing..." : "Signup"}
       </h1>
       <hr />
       {/* Form for the user to signup */}
@@ -95,7 +102,7 @@ export default function SignupPage() {
       <button
         onClick={onSignup}
         className={`py-1 px-4 border border-gray300 rounded-lg mt-4 focus:outline-none focus:border-gray-600 ${
-          buttonDisabled ? "bg-red-800" : "bg-green-800"
+          isButtonDisabled ? "bg-red-800" : "bg-green-800"
         }`}
       >
         Signup
