@@ -1,7 +1,7 @@
 // Set as client-side
 "use client";
 
-import { isValidEmail } from "../../utils/validation";
+import { isValidEmail } from "../../helpers/validation";
 import Link from "next/link";
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";

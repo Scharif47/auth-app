@@ -1,7 +1,8 @@
 // Set as client-side
 "use client";
 
-import React, { useState } from "react";
+import { User } from "../../helpers/types";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
@@ -9,9 +10,21 @@ import { toast } from "react-hot-toast";
 
 export default function ProfilePage() {
   const router = useRouter();
-
+  // Set state for user object
+  const [userData, setUserData] = useState<User>({
+    _id: "",
+    username: "",
+    email: "",
+    isVerified: false,
+    isAdmin: false,
+  });
   // Set state for loading process
   const [isLoading, setIsLoading] = useState(false);
+
+  // Get the user details on page load
+  useEffect(() => {
+    getUserDetails();
+  }, []);
 
   // Function for logging out the user
   const logout = async () => {
@@ -31,12 +44,25 @@ export default function ProfilePage() {
     }
   };
 
+  // Function for getting the user details
+  const getUserDetails = async () => {
+    // Get the user deta
+    const response = await axios.get("/api/users/me");
+    setUserData(response.data.data);
+  };
+
   return (
     <div className="flex flex-col justify-center items-center min-h-screen py-2 text-slate-100">
       {/* Title of the Page */}
       <h1 className="text-white text-2xl">Profile</h1>
       <hr />
       <p>Profile page</p>
+      <hr />
+      {userData._id && (
+        <h2 className="mt-4 mb-2 py-1 px-2 padding rounded bg-red-700">
+          <Link href={`/profile/${userData._id}`}>Go to Profile</Link>
+        </h2>
+      )}
       <hr />
       <button
         onClick={logout}
