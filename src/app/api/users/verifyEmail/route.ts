@@ -5,7 +5,7 @@ import User from "@/models/userModel";
 // Connect to database
 connect();
 
-export async function post(request: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
     // Get request body
     const reqBody = await request.json();
