@@ -9,11 +9,11 @@ const nextConfig = {
           { key: "Access-Control-Allow-Credentials", value: "true" },
           {
             key: "Access-Control-Allow-Origin",
-            value: "https://auth-app-nine.vercel.app",
-          }, // Remove trailing slash
+            value: "*",
+          },
           {
             key: "Access-Control-Allow-Methods",
-            value: "GET, DELETE, PATCH, POST, PUT", // Space after commas
+            value: "GET, DELETE, PATCH, POST, PUT",
           },
           {
             key: "Access-Control-Allow-Headers",
