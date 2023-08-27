@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import cors from 'nextjs-cors';
+import { NextRequest, NextResponse } from 'next/server';
 
 // Redirecting
 export function middleware(request: NextRequest) {
@@ -37,3 +37,8 @@ export const config = {
     "/verifyemail",
   ],
 };
+
+export const corsMiddleware = cors({
+  methods: ['GET', 'POST'],
+  origin: process.env.CORS_ORIGIN,
+})
