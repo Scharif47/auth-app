@@ -1,4 +1,3 @@
-import cors from 'nextjs-cors';
 import { NextRequest, NextResponse } from 'next/server';
 
 // Redirecting
@@ -37,8 +36,3 @@ export const config = {
     "/verifyemail",
   ],
 };
-
-export const corsMiddleware = cors({
-  methods: ['GET', 'POST'],
-  origin: process.env.CORS_ORIGIN,
-})
