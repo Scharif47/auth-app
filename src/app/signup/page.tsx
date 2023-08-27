@@ -33,7 +33,6 @@ export default function SignupPage() {
 
       // Show success message
       toast.success("Signup successful");
-      console.log("Signup success ", response.data);
 
       // Push the registered user to the login page
       router.push("/login");

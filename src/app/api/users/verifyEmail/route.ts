@@ -13,8 +13,6 @@ export async function POST(request: NextRequest) {
     // Get token from request body
     const { token } = reqBody;
 
-    console.log("token: ", token);
-
     // Find user by token
     const user = await User.findOne({
       verifyToken: token,
@@ -25,8 +23,6 @@ export async function POST(request: NextRequest) {
     if (!user) {
       return NextResponse.json({ error: "Invalid token" }, { status: 400 });
     }
-
-    console.log("user: ", user);
 
     // Update user
     user.isVerified = true;

@@ -32,7 +32,6 @@ export default function LoginPage() {
 
       // Show success message
       toast.success("Login successful");
-      console.log("Login success ", response.data);
 
       // Push the logged in user to the profile page
       router.push("/profile");

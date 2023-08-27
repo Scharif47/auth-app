@@ -12,9 +12,7 @@ export async function POST(request: NextRequest) {
   // Try to handle the request
   try {
     const reqBody = await request.json();
-    const { username, email, password } = reqBody;
-
-    console.log("reqBody", reqBody);
+    const { username, email, password } = reqBody;;
 
     // Check if user already exists
     const user = await User.findOne({ email });
@@ -40,8 +38,6 @@ export async function POST(request: NextRequest) {
 
     // Save user to database
     const savedUser = await newUser.save();
-
-    console.log("savedUser: ", savedUser);
 
     // Send verification email
     await sendEmail({ email, emailType: "VERIFY", userId: savedUser._id });
