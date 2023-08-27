@@ -19,8 +19,6 @@ export async function POST(request: NextRequest) {
       verifyTokenExpiry: { $gt: Date.now() }, // Check if expiry date is greater than current date
     });
 
-    console.log("user1: ", user)
-
     // If user not found
     if (!user) {
       return NextResponse.json({ error: "Invalid token" }, { status: 400 });
@@ -30,9 +28,7 @@ export async function POST(request: NextRequest) {
     user.isVerified = true;
     user.verifyToken = undefined;
     user.verifyTokenExpiry = undefined;
-    const updatedUser = await user.save();
-
-    console.log("user2: ", updatedUser)
+    await user.save();
 
     return NextResponse.json({
       message: "Email verified successfully",
